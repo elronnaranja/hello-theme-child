@@ -15,6 +15,19 @@ Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, fe
 /***********************************************************/
 /** RESET **************************************************/
 /***********************************************************/
+[class*="elementor"] h1,
+[class*="elementor"] h2,
+[class*="elementor"] h3,
+[class*="elementor"] h4,
+[class*="elementor"] h5,
+[class*="elementor"] h6{
+	margin: 0 0 20px;
+}
+'
+[class*="elementor"] p:last-of-type {
+    margin: 0;
+}
+
 
 @media only screen and (max-width: 1024px) {}
 @media only screen and (max-width: 767px) {}
