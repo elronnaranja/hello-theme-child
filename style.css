@@ -27,6 +27,9 @@ Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, fe
 [class*="elementor"] h6{
 	margin: 0 0 20px;
 }
+*:is(p) {
+    text-wrap: pretty;
+}
 [class*="elementor"] p:last-of-type {
     margin: 0;
 }
