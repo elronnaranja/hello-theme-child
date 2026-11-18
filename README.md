@@ -1,27 +1,30 @@
 # HELLO ELEMENTOR CHILD
 
-Contributors: [Elron Naranja](https://elronnaranja.com), Jermaine Lorenzo | This theme is produced for [Creative Bananas'](https://creativebananas.com) Projects.
+Contributors: [Elron Naranja](https://elronnaranja.com), Jermaine Lorenzo | Starter child theme for Connective Web Design (CWD) projects (first made for [Creative Bananas](https://creativebananas.com)).
+
+# How we build (v2)
+
+1. **Globals only.** Elementor > Site Settings: set **Global Colors** and **Global Fonts** only. Typography, Buttons, Form Fields and the rest of Theme Style pick from those globals, never their own values.
+2. **Base fonts on every project:** Page Title = H1 (system *Primary*), Section Title = H2 (*Secondary*), Module Title = H3 (*Accent*), Body Text (*Text*). Other fonts (eyebrow, H4-H6, quote, button...) are per project.
+3. **Readable IDs.** Give each custom global a readable ID (e.g. `cream`, `eyebrow`) so its CSS variable reads `--e-global-color-cream` / `--e-global-typography-eyebrow-font-size`. Use those variables in `style.css`; never hard-code a hex or font.
+4. **One `style.css`, one `js/script.js`.** All custom styling and all jQuery. Use Elementor's own options before custom code.
+5. **Slick** for sliders (loaded by `functions.php`, base CSS at the end of `style.css`).
+6. **Icons are SVG.** Upload SVGs (Elementor > Settings > Advanced > Unfiltered file uploads) and turn on Elementor's inline SVG icons.
+7. **Brand guide page** on every site: all globals, H1 to H6, buttons and form fields in one page.
+8. **Layout width** from the design goes in Site Settings > Layout > Content width.
+
+Files are versioned by their last change (`filemtime`), so edits show up at once and caching still works.
 
 # Plugins
 
-### [Linkify](https://www.jqueryscript.net/text/jQuery-Plugin-To-Transform-URLs-In-Text-Into-Links-linkify.html)
-**Add this code below jQuery Enqueue**
-```
-wp_enqueue_script('cb-linkify-js', get_stylesheet_directory_uri() .'/js/linkify.min.js', array(), $ver, true);
-wp_enqueue_script('cb-linkify-jquery', get_stylesheet_directory_uri() .'/js/jquery.linkify.min.js', array(), $ver, true);
-```
+### [Slick](https://kenwheeler.github.io/slick/)
+Already loaded. Example set-up is in `js/script.js` > SLIDERS.
 
-**Add this code in script.js**
-``` 
+### [Linkify](https://www.jqueryscript.net/text/jQuery-Plugin-To-Transform-URLs-In-Text-Into-Links-linkify.html)
+Uncomment the two Linkify lines in `functions.php`, then in `script.js`:
+```
 $("selector").linkify();
 ```
-
-### [Slick](https://kenwheeler.github.io/slick/)
-**Add this code below jQuery Enqueue**
-```
-wp_enqueue_script('cb-slick-js', get_stylesheet_directory_uri() .'/js/slick.min.js', array(), $ver, true);
-```
-**Copy the code in slick.css to style.css**
 
 # jQuery Hacks 
 
