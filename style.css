@@ -1,39 +1,406 @@
-/* 
+/*
 Theme Name: Hello Elementor Child
-Theme URI: https://github.com/elementor/hello-theme/
-Description: Hello Elementor Child is a child theme of Hello Elementor, created by Elementor team
-Author: Elementor Team
-Author URI: https://elementor.com/
+Theme URI: https://github.com/elronnaranja/hello-theme-child
+Description: CWD starter child theme for Hello Elementor. All styling in this one file, all jQuery in js/script.js.
+Author: Elron Naranja
+Author URI: https://elronnaranja.com
 Template: hello-elementor
-Version: 1.0.1
+Version: 2.0.0
 Text Domain: hello-elementor-child
 License: GNU General Public License v3 or later.
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, featured-images, rtl-language-support, threaded-comments, translation-ready
+*/
+
+/*
+HOW THIS FILE WORKS
+- Colors and fonts live ONLY in Elementor > Site Settings > Global Colors / Global Fonts.
+  Give each global a readable ID, then use it here:
+    var(--e-global-color-primary)              system colors: primary, secondary, text, accent
+    var(--e-global-color-cream)                custom colors: the ID you gave it
+    var(--e-global-typography-eyebrow-font-size)   fonts: -font-family, -font-size, -font-weight,
+                                                   -line-height, -letter-spacing, -text-transform
+- Base type on every project: Page Title = H1 (primary), Section Title = H2 (secondary),
+  Module Title = H3 (accent), Body Text = text.
+- Never hard-code a hex or a font family here. If a value is new, add a global first.
+- Icons are SVG: Elementor icon/button with an uploaded SVG, or a data-URI/mask SVG here.
+- Sections: BASE, VARIABLES, TYPOGRAPHY, BUTTONS, LISTS & QUOTES, HEADER, FOOTER, PAGES (one block
+  per page, by section ID), FORMS, RESPONSIVE, SLICK.
 */
 
 /***********************************************************/
-/** RESET **************************************************/
+/** BASE ***************************************************/
 /***********************************************************/
-[class*="elementor"] ul, 
-[class*="elementor"] ol {
-
+[class*="elementor"] a {
+	transition: var(--transition);
 }
+[class*="elementor"] img {
+	vertical-align: middle;
+}
+
+/***********************************************************/
+/** VARIABLES **********************************************/
+/***********************************************************/
+/* Only things Elementor has no global for. Colors and fonts: use the --e-global-* variables. */
+body[class*="elementor-kit-"] {
+	--space-heading: 24px;          /* gap under any heading */
+	--space-paragraph: 24px;        /* gap between paragraphs */
+	--space-block: 40px;            /* lists, quotes inside text */
+	--radius: 0px;                  /* project corner radius */
+	--line: color-mix(in srgb, var(--e-global-color-text) 25%, transparent); /* dividers */
+	--shadow: 0 10px 15px rgb(0 0 0 / 20%);
+	--transition: .4s all ease;
+}
+
+/***********************************************************/
+/** TYPOGRAPHY *********************************************/
+/***********************************************************/
+/* Font, size and color come from Theme Style (globals). Only spacing and rendering here. */
 [class*="elementor"] h1,
 [class*="elementor"] h2,
 [class*="elementor"] h3,
 [class*="elementor"] h4,
 [class*="elementor"] h5,
-[class*="elementor"] h6{
-	margin: 0 0 20px;
+[class*="elementor"] h6 {
+	margin: 0 0 var(--space-heading);
+	text-wrap: balance;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
-*:is(p) {
-    text-wrap: pretty;
+[class*="elementor"] .elementor-heading-title {
+	margin: 0; /* heading widgets: spacing is set in Elementor */
 }
-[class*="elementor"] p:last-of-type {
-    margin: 0;
+[class*="elementor"] h1 strong,
+[class*="elementor"] h2 strong,
+[class*="elementor"] h3 strong,
+[class*="elementor"] h4 strong,
+[class*="elementor"] h5 strong,
+[class*="elementor"] h6 strong,
+[class*="elementor"] .semibold {
+	font-weight: 600;
+}
+[class*="elementor"] p {
+	margin: 0 0 var(--space-paragraph);
+	text-wrap: pretty;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+[class*="elementor"] p:last-child {
+	margin-bottom: 0;
 }
 
+/* Text on dark sections: add class "on-dark" to the container */
+[class*="elementor"] .on-dark h1,
+[class*="elementor"] .on-dark h2,
+[class*="elementor"] .on-dark h3,
+[class*="elementor"] .on-dark h4,
+[class*="elementor"] .on-dark h5,
+[class*="elementor"] .on-dark h6,
+[class*="elementor"] .on-dark .elementor-heading-title {
+	color: var(--e-global-color-white);
+}
 
-@media only screen and (max-width: 1024px) {}
-@media only screen and (max-width: 767px) {}
+/* Reuse a global font on any element: class "type-<id>", e.g. type-eyebrow */
+[class*="elementor"] .type-eyebrow {
+	font-family: var(--e-global-typography-eyebrow-font-family), sans-serif;
+	font-size: var(--e-global-typography-eyebrow-font-size);
+	font-weight: var(--e-global-typography-eyebrow-font-weight);
+	line-height: var(--e-global-typography-eyebrow-line-height);
+}
+
+/***********************************************************/
+/** BUTTONS ************************************************/
+/***********************************************************/
+/* Default look = Theme Style > Buttons. Icons = the button's own SVG icon option.
+   Variants: add the class to the button widget (or a parent container). */
+[class*="elementor"] .elementor-button {
+	border: 1px solid transparent;
+	border-radius: var(--radius);
+}
+[class*="elementor"] .elementor-button:hover {
+	box-shadow: var(--shadow);
+}
+[class*="elementor"] .elementor-button .elementor-button-icon {
+	transition: var(--transition);
+}
+[class*="elementor"] .elementor-button:hover .elementor-button-icon {
+	transform: translateX(4px);
+}
+
+/* alt-1: secondary color */
+[class*="elementor"] .alt-1 .elementor-button,
+[class*="elementor"] .elementor-button.alt-1 {
+	background: var(--e-global-color-secondary);
+	color: var(--e-global-color-white);
+}
+/* alt-2: white button (for dark sections) */
+[class*="elementor"] .alt-2 .elementor-button,
+[class*="elementor"] .elementor-button.alt-2 {
+	background: var(--e-global-color-white);
+	color: var(--e-global-color-primary);
+}
+/* alt-3: outline */
+[class*="elementor"] .alt-3 .elementor-button,
+[class*="elementor"] .elementor-button.alt-3 {
+	background: transparent;
+	border-color: currentColor;
+	color: var(--e-global-color-primary);
+}
+/* alt-4: glass (on photos / dark backgrounds) */
+[class*="elementor"] .alt-4 .elementor-button,
+[class*="elementor"] .elementor-button.alt-4 {
+	background: rgb(255 255 255 / 16%);
+	border-color: rgb(255 255 255 / 25%);
+	color: var(--e-global-color-white);
+}
+
+/* Several buttons in a row: class "two-buttons" on the container or text widget */
+[class*="elementor"] .two-buttons {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+/***********************************************************/
+/** LISTS & QUOTES *****************************************/
+/***********************************************************/
+[class*="elementor"] .elementor-widget-text-editor ul {
+	margin: var(--space-block) 0;
+	padding-left: 20px;
+	list-style: none;
+}
+[class*="elementor"] .elementor-widget-text-editor ul li {
+	position: relative;
+}
+[class*="elementor"] .elementor-widget-text-editor ul li::before {
+	content: '';
+	width: 5px;
+	height: 5px;
+	border-radius: 100%;
+	background: var(--e-global-color-text);
+	position: absolute;
+	top: calc(var(--e-global-typography-text-line-height) / 2);
+	left: -15px;
+	transform: translateY(-50%);
+}
+[class*="elementor"] .elementor-widget-text-editor ul:first-child,
+[class*="elementor"] .elementor-widget-text-editor ol:first-child {
+	margin-top: 0;
+}
+[class*="elementor"] .elementor-widget-text-editor ul:last-child,
+[class*="elementor"] .elementor-widget-text-editor ol:last-child {
+	margin-bottom: 0;
+}
+
+[class*="elementor"] blockquote {
+	margin: var(--space-block) 0;
+	padding-left: 16px;
+	border-left: 1px solid var(--e-global-color-primary);
+	color: var(--e-global-color-primary);
+	font-family: var(--e-global-typography-quote-font-family, inherit), serif;
+	font-size: var(--e-global-typography-quote-font-size, inherit);
+	line-height: var(--e-global-typography-quote-line-height, inherit);
+}
+
+/***********************************************************/
+/** HEADER *************************************************/
+/***********************************************************/
+/* Header template: container ID "header-main". script.js adds .sticky after scrolling. */
+#header-main {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	z-index: 9998;
+	transition: var(--transition);
+}
+#header-main.sticky {
+	background: var(--e-global-color-white);
+	box-shadow: var(--shadow);
+}
+body.admin-bar #header-main {
+	top: var(--wp-admin--admin-bar--height, 32px);
+}
+
+/***********************************************************/
+/** FOOTER *************************************************/
+/***********************************************************/
+/* Footer template: container ID "footer-main". Link lists: class "links" on the text widget. */
+#footer-main .links ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+#footer-main .links ul li::before {
+	content: none;
+}
+
+/***********************************************************/
+/** PAGES **************************************************/
+/***********************************************************/
+/* One block per page, sections by ID:
+/** HOME ****************************************************
+#banner .banner-details h1 { ... }
+*/
+
+/***********************************************************/
+/** FORMS **************************************************/
+/***********************************************************/
+/* Elementor Pro form: styled by Theme Style > Form Fields. Gravity Forms below follows the same globals. */
+[class*="elementor"] .gform_wrapper.gravity-theme .gform_required_legend {
+	display: none;
+}
+[class*="elementor"] .gform_wrapper.gravity-theme .gform_fields,
+[class*="elementor"] .gform_wrapper.gravity-theme .ginput_complex {
+	grid-gap: 24px 20px;
+}
+[class*="elementor"] .gform_wrapper.gravity-theme input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]),
+[class*="elementor"] .gform_wrapper.gravity-theme select,
+[class*="elementor"] .gform_wrapper.gravity-theme textarea {
+	margin: 0;
+	padding: 12px 16px;
+	border: 1px solid var(--e-global-color-text);
+	border-radius: var(--radius);
+	background: var(--e-global-color-white);
+	color: var(--e-global-color-text);
+	font-family: var(--e-global-typography-text-font-family), sans-serif;
+	font-size: var(--e-global-typography-text-font-size);
+	font-weight: var(--e-global-typography-text-font-weight);
+	line-height: var(--e-global-typography-text-line-height);
+}
+[class*="elementor"] .gform_wrapper.gravity-theme input:focus,
+[class*="elementor"] .gform_wrapper.gravity-theme select:focus,
+[class*="elementor"] .gform_wrapper.gravity-theme textarea:focus {
+	outline: 2px solid var(--e-global-color-primary);
+	outline-offset: 1px;
+}
+[class*="elementor"] .gform_wrapper.gravity-theme .gfield_label {
+	color: var(--e-global-color-heading, var(--e-global-color-text));
+	font-family: var(--e-global-typography-text-font-family), sans-serif;
+	font-weight: 500;
+}
+[class*="elementor"] .gform_wrapper.gravity-theme .gform_footer input[type=submit],
+[class*="elementor"] .gform_wrapper.gravity-theme .gform_footer button {
+	margin: 0;
+	padding: 15px 25px;
+	border: 0;
+	border-radius: var(--radius);
+	background: var(--e-global-color-accent);
+	color: var(--e-global-color-white);
+	font-family: var(--e-global-typography-button-font-family, inherit), sans-serif;
+	font-size: var(--e-global-typography-button-font-size, inherit);
+	font-weight: var(--e-global-typography-button-font-weight, inherit);
+	line-height: var(--e-global-typography-button-line-height, inherit);
+	cursor: pointer;
+	transition: var(--transition);
+}
+[class*="elementor"] .gform_wrapper.gravity-theme .gform_footer input[type=submit]:hover,
+[class*="elementor"] .gform_wrapper.gravity-theme .gform_footer button:hover {
+	background: var(--e-global-color-button-hover, var(--e-global-color-primary));
+	box-shadow: var(--shadow);
+}
+
+/***********************************************************/
+/** RESPONSIVE *********************************************/
+/***********************************************************/
+/* Same breakpoints as Elementor: tablet 1024, mobile 767. Font sizes per device are set in Global Fonts. */
+@media only screen and (max-width: 1024px) {
+}
+@media only screen and (max-width: 767px) {
+	[class*="elementor"] h1 br,
+	[class*="elementor"] h2 br,
+	[class*="elementor"] h3 br,
+	[class*="elementor"] h4 br,
+	[class*="elementor"] h5 br,
+	[class*="elementor"] h6 br {
+		display: none;
+	}
+	body.admin-bar #header-main {
+		top: 0;
+	}
+}
+
+/***********************************************************/
+/** SLICK (vendor base CSS, do not edit) *******************/
+/***********************************************************/
+.slick-slider {
+	position: relative;
+	display: block;
+	box-sizing: border-box;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
+	touch-action: pan-y;
+	-webkit-tap-highlight-color: transparent;
+}
+.slick-list {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+.slick-list:focus {
+	outline: none;
+}
+.slick-list.dragging {
+	cursor: pointer;
+}
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+	transform: translate3d(0, 0, 0);
+}
+.slick-track {
+	position: relative;
+	top: 0;
+	left: 0;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.slick-track::before,
+.slick-track::after {
+	content: '';
+	display: table;
+}
+.slick-track::after {
+	clear: both;
+}
+.slick-loading .slick-track {
+	visibility: hidden;
+}
+.slick-slide {
+	display: none;
+	float: left;
+	height: 100%;
+	min-height: 1px;
+}
+[dir='rtl'] .slick-slide {
+	float: right;
+}
+.slick-slide img {
+	display: block;
+}
+.slick-slide.slick-loading img {
+	display: none;
+}
+.slick-slide.dragging img {
+	pointer-events: none;
+}
+.slick-initialized .slick-slide {
+	display: block;
+}
+.slick-loading .slick-slide {
+	visibility: hidden;
+}
+.slick-vertical .slick-slide {
+	display: block;
+	height: auto;
+	border: 1px solid transparent;
+}
+.slick-arrow.slick-hidden {
+	display: none;
+}
